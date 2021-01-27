@@ -12,7 +12,7 @@ public class RollController {
 	}
 
 	public int rollADie(int nSides){
-		return this.die.roll(6);
+		return this.die.roll(nSides);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
