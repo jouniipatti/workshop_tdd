@@ -1,24 +1,22 @@
 package com.ws.tdd;
 
-import java.util.Random;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RollController {
-	private Random randomizer;
+	private IDie die;
 
-	public RollController(){
-		this.randomizer = new Random();
+	public RollController(IDie die){
+		this.die = die;
+	}
+
+	public int rollADie(){
+		return this.die.roll();
 	}
 
 	@RequestMapping("/roll")
 	public String rollDice(){
 		return "TODO: TDD-workshop!";
-	}
-
-	public int rollADie() {
-		float rnd = randomizer.nextFloat();
-		return 1+(int)(rnd*6);
 	}
 
 	public RollResults rollNDice(int nDice) {
@@ -27,10 +25,6 @@ public class RollController {
 			result[i] = rollADie();
 		}
 		return new RollResults(result, 3000);
-	}
-
-	public void useSeed(int seed) {
-		this.randomizer = new Random(seed);
 	}
 
 

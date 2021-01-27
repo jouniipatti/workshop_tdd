@@ -1,20 +1,25 @@
 package com.ws.tdd.unit_tests;
 
+import com.ws.tdd.IDie;
 import com.ws.tdd.RollController;
 import com.ws.tdd.RollResults;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.mockito.*;
+
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class RollControllerTests {
 	private RollController sut;
+	private IDie die;
 
 	@BeforeEach
 	public void setup(){
-		sut = new RollController();
-		sut.useSeed(0);
+		die = mock(IDie.class);
+		sut = new RollController(die);
 	}
 
 	@Test
@@ -49,7 +54,6 @@ public class RollControllerTests {
 
 	@Test
 	public void testRollNDice(){
-		sut.useSeed(0);
 		int[] result = sut.rollNDice(5).rolls;
 		assertThat(result).isEqualTo(new int[]{5,5,2,4,4});
 	}
