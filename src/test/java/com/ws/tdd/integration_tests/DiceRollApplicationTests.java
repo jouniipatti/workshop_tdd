@@ -11,6 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+import com.ws.tdd.IDie;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -18,6 +21,9 @@ public class DiceRollApplicationTests {
 	@Autowired
 	private TestRestTemplate client;
 	
+	@Autowired
+	private IDie die;
+
 	@LocalServerPort
 	private int port;
 
@@ -29,6 +35,7 @@ public class DiceRollApplicationTests {
 
 	@Test
 	public void diceRollResults(){
+		when(die.roll()).thenReturn(4,3,6);
 		String result = client.getForObject("http://localhost:"+port+"/roll?dice=3", String.class);        
 		assertThat(result).isEqualTo("{\"sum\":13,\"rolls\":[4,3,6]}");
 	}
