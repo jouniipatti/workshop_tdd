@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class TestConfiguration {
 	@Bean
-	@Scope("sigleton")
+	@Scope("singleton")
 	@Primary
 	public IDie iDice(){
 		return mock(IDie.class);

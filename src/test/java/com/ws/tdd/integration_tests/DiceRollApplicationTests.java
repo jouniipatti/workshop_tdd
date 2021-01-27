@@ -7,11 +7,12 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import static org.assertj.core.api.Assertions.*;
 
-
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class DiceRollApplicationTests {
 	@Autowired

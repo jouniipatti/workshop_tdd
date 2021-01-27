@@ -15,8 +15,8 @@ public class RollController {
 	}
 
 	@RequestMapping("/roll")
-	public String rollDice(){
-		return "TODO: TDD-workshop!";
+	public RollResults rollDice(@RequestParam(name="dice")String nDice){
+		return rollNDice(Integer.parseInt(nDice));
 	}
 
 	public RollResults rollNDice(int nDice) {
