@@ -21,10 +21,13 @@ public class RollController {
 
 	public RollResults rollNDice(int nDice) {
 		int[] result = new int[nDice];
+		int sum = 0;
 		for (int i=0; i<nDice; i++){
-			result[i] = rollADie();
+			int roll = rollADie();
+			sum += roll;
+			result[i] = roll;
 		}
-		return new RollResults(result, 3000);
+		return new RollResults(result, sum);
 	}
 
 
