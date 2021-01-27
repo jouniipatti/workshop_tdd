@@ -29,11 +29,6 @@ public class RollControllerTests {
 		assertThat(sut).isNotNull();
 	}
 
-	//DONE: heittää noppia
-	//DONE:	-heittää 1 noppa
-	//summa
-	//JSON
-
 	@Test
 	public void sutThrowsADie(){
 		when(die.roll()).thenReturn(5);
@@ -76,5 +71,10 @@ public class RollControllerTests {
 	public void sumWithManyValues(){
 		when(die.roll()).thenReturn(5);
 		assertThat(sut.rollNDice(10000).sum).isEqualTo(50000);
+	}
+
+	@Test
+	public void negativeNumberOfDiceThrows(){
+		assertThatThrownBy(() -> sut.rollNDice(-1)).isInstanceOf(IllegalArgumentException.class);
 	}
 }

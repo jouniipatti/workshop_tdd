@@ -20,6 +20,7 @@ public class RollController {
 	}
 
 	public RollResults rollNDice(int nDice) {
+		if (nDice < 0) throw new IllegalArgumentException();
 		int[] result = new int[nDice];
 		int sum = 0;
 		for (int i=0; i<nDice; i++){
