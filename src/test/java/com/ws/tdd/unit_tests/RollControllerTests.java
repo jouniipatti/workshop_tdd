@@ -32,35 +32,35 @@ public class RollControllerTests {
 
 	@Test
 	public void sutThrowsADie(){
-		when(die.roll()).thenReturn(5);
-		assertThat(sut.rollADie()).isEqualTo(5);
+		when(die.roll(6)).thenReturn(5);
+		assertThat(sut.rollADie(6)).isEqualTo(5);
 	}
 
 
 	@Test
 	public void testRollNDice(){
-		when(die.roll()).thenReturn(5,5,2,4,4);
+		when(die.roll(6)).thenReturn(5,5,2,4,4);
 		int[] result = sut.rollNDice(5).rolls;
 		assertThat(result).isEqualTo(new int[]{5,5,2,4,4});
 	}
 
 	@Test
 	public void rollNDiceReturns_RollResults(){
-		when(die.roll()).thenReturn(5,5,2);
+		when(die.roll(6)).thenReturn(5,5,2);
 		RollResults results = sut.rollNDice(3);
 		assertThat(results.rolls).isEqualTo(new int[]{5,5,2});
 	}
 
 	@Test
 	public void sumInRollResults(){
-		when(die.roll()).thenReturn(3);
+		when(die.roll(6)).thenReturn(3);
 		RollResults results = sut.rollNDice(1000);
 		assertThat(results.sum).isEqualTo(3000);
 	}
 
 	@Test
 	public void sumWithManyValues(){
-		when(die.roll()).thenReturn(5);
+		when(die.roll(6)).thenReturn(5);
 		assertThat(sut.rollNDice(10000).sum).isEqualTo(50000);
 	}
 
@@ -71,7 +71,7 @@ public class RollControllerTests {
 
 	@Test
 	public void testRollEndpoint(){
-		when(die.roll()).thenReturn(1,2,6,1,1);
+		when(die.roll(6)).thenReturn(1,2,6,1,1);
 		RollResults result = sut.rollDice("5");
 		assertResults(result, 1,2,6,1,1);
 	}
@@ -80,6 +80,19 @@ public class RollControllerTests {
 	public void queryExceptionOnParseInt(){
 		assertThatThrownBy(() -> sut.rollDice("a")).isInstanceOf(MalformedQueryException.class);
 	}
+
+
+	//parsinta 3d6 --> 3,6...
+	//parametrisoitu nopan koko
+
+	@Test
+	public void testDieSize(){
+		when(die.roll(20)).thenReturn(20);
+		assertThat(sut.rollADie(20)).isEqualTo(20);
+	}
+
+
+
 
 	private void assertResults(RollResults res, int...rolls){
 		int sum = 0;

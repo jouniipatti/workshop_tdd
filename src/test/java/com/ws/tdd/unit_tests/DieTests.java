@@ -27,7 +27,7 @@ public class DieTests {
 	public void testMeanIsCloseTo_3_5(){
 		int result = 0;
 		for (int i=0; i<1000; i++){
-			result += sut.roll();
+			result += sut.roll(6);
 		}
 		float mean = ((float)result)/1000.0f;
 		assertThat(mean).isBetween(3.4f, 3.6f);

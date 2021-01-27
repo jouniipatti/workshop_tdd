@@ -35,7 +35,7 @@ public class DiceRollApplicationTests {
 
 	@Test
 	public void diceRollResults(){
-		when(die.roll()).thenReturn(4,3,6);
+		when(die.roll(6)).thenReturn(4,3,6);
 		String result = client.getForObject("http://localhost:"+port+"/roll?dice=3", String.class);        
 		assertThat(result).isEqualTo("{\"sum\":13,\"rolls\":[4,3,6]}");
 	}
@@ -44,6 +44,13 @@ public class DiceRollApplicationTests {
 	public void diceRollMalformedQuery(){
 		ResponseEntity<String> result = client.getForEntity("http://localhost:"+port+"/roll?dice=asd", String.class);        
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+	}
+
+	@Test
+	public void diceRollResultsD20(){
+		when(die.roll(20)).thenReturn(20,1,11);
+		String result = client.getForObject("http://localhost:"+port+"/roll?dice=3d20", String.class);        
+		assertThat(result).isEqualTo("{\"sum\":13,\"rolls\":[20,1,11]}");
 	}
 
 }

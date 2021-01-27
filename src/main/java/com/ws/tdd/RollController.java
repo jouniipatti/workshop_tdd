@@ -11,8 +11,8 @@ public class RollController {
 		this.die = die;
 	}
 
-	public int rollADie(){
-		return this.die.roll();
+	public int rollADie(int nSides){
+		return this.die.roll(6);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -35,7 +35,7 @@ public class RollController {
 		int[] result = new int[nDice];
 		int sum = 0;
 		for (int i=0; i<nDice; i++){
-			int roll = rollADie();
+			int roll = rollADie(6);
 			sum += roll;
 			result[i] = roll;
 		}
