@@ -59,4 +59,15 @@ public class RollControllerTests {
 		RollResults results = sut.rollNDice(3);
 		assertThat(results.rolls).isEqualTo(new int[]{5,5,2});
 	}
+
+	@Test
+	public void sumInRollResults(){
+		RollResults results = sut.rollNDice(1000);
+		assertThat(results.sum).isEqualTo(3000);
+	}
+
+	@Test
+	public void sumWithManyValues(){
+		assertThat(sut.rollNDice(10000).sum).isEqualTo(50000);
+	}
 }

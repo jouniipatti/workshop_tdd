@@ -26,7 +26,7 @@ public class RollController {
 		for (int i=0; i<nDice; i++){
 			result[i] = rollADie();
 		}
-		return new RollResults(result);
+		return new RollResults(result, 3000);
 	}
 
 	public void useSeed(int seed) {
