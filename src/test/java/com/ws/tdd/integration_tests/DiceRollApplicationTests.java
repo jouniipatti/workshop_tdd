@@ -39,4 +39,11 @@ public class DiceRollApplicationTests {
 		String result = client.getForObject("http://localhost:"+port+"/roll?dice=3", String.class);        
 		assertThat(result).isEqualTo("{\"sum\":13,\"rolls\":[4,3,6]}");
 	}
+
+	@Test
+	public void diceRollMalformedQuery(){
+		ResponseEntity<String> result = client.getForEntity("http://localhost:"+port+"/roll?dice=asd", String.class);        
+		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+	}
+
 }

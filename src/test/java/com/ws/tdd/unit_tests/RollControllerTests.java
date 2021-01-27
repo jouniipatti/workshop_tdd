@@ -3,6 +3,7 @@ package com.ws.tdd.unit_tests;
 import com.ws.tdd.IDie;
 import com.ws.tdd.RollController;
 import com.ws.tdd.RollResults;
+import com.ws.tdd.RollController.MalformedQueryException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,6 +74,11 @@ public class RollControllerTests {
 		when(die.roll()).thenReturn(1,2,6,1,1);
 		RollResults result = sut.rollDice("5");
 		assertResults(result, 1,2,6,1,1);
+	}
+
+	@Test
+	public void queryExceptionOnParseInt(){
+		assertThatThrownBy(() -> sut.rollDice("a")).isInstanceOf(MalformedQueryException.class);
 	}
 
 	private void assertResults(RollResults res, int...rolls){

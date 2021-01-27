@@ -1,5 +1,6 @@
 package com.ws.tdd;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +15,19 @@ public class RollController {
 		return this.die.roll();
 	}
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public class MalformedQueryException extends IllegalArgumentException{}
+
 	@RequestMapping("/roll")
 	public RollResults rollDice(@RequestParam(name="dice")String nDice){
-		return rollNDice(Integer.parseInt(nDice));
+		int numberOfDice;
+		try{
+			numberOfDice = Integer.parseInt(nDice);
+		}
+		catch (Exception e){
+			throw new MalformedQueryException();
+		}
+		return rollNDice(numberOfDice);
 	}
 
 	public RollResults rollNDice(int nDice) {
