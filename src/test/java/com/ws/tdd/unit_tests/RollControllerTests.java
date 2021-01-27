@@ -14,6 +14,7 @@ public class RollControllerTests {
 	@BeforeEach
 	public void setup(){
 		sut = new RollController();
+		sut.useSeed(0);
 	}
 
 	@Test
