@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import com.ws.tdd.IDie;
+import com.ws.tdd.RollResults;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class EndToEndTests {
@@ -25,9 +26,19 @@ public class EndToEndTests {
 
 	@Test
 	public void diceRollReturnsOk(){
-		ResponseEntity<String> result = client.getForEntity("http://localhost:"+port+"/roll?dice=3", String.class);        
+		ResponseEntity<String> result = client.getForEntity(url(3), String.class);        
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 	
+	@Test
+	public void diceRollsInLimits(){
+		RollResults results = client.getForObject(url(2), RollResults.class);
+		assertThat(results.rolls.length).isEqualTo(2);
+		assertThat(results.rolls[0]).isBetween(1, 6);
+		assertThat(results.rolls[1]).isBetween(1, 6);
+	}
 
+	private String url(int nDice){
+		return "http://localhost:"+port+"/roll?dice="+nDice;
+	}
 }
