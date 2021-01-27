@@ -35,16 +35,6 @@ public class RollControllerTests {
 		assertThat(sut.rollADie()).isEqualTo(5);
 	}
 
-	// @Test
-	// public void testMeanIsCloseTo_3_5(){
-	// 	when(die.roll()).thenReturn(3);
-	// 	int result = 0;
-	// 	for (int i=0; i<1000; i++){
-	// 		result += sut.rollADie();
-	// 	}
-	// 	float mean = ((float)result)/1000.0f;
-	// 	assertThat(mean).isBetween(3.4f, 3.6f);
-	// }
 
 	@Test
 	public void testRollNDice(){
