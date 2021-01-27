@@ -82,7 +82,15 @@ public class RollControllerTests {
 	public void testRollEndpoint(){
 		when(die.roll()).thenReturn(1,2,6,1,1);
 		RollResults result = sut.rollDice("5");
-		assertThat(result.sum).isEqualTo(11);
-		assertThat(result.rolls).isEqualTo(new int[]{1,2,6,1,1});
+		assertResults(result, 1,2,6,1,1);
+	}
+
+	private void assertResults(RollResults res, int...rolls){
+		int sum = 0;
+		for (int i=0; i<rolls.length; i++){
+			sum += rolls[i];
+		}
+		assertThat(res.sum).isEqualTo(sum);
+		assertThat(res.rolls).isEqualTo(rolls);		
 	}
 }
