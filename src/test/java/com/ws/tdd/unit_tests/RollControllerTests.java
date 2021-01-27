@@ -77,4 +77,12 @@ public class RollControllerTests {
 	public void negativeNumberOfDiceThrows(){
 		assertThatThrownBy(() -> sut.rollNDice(-1)).isInstanceOf(IllegalArgumentException.class);
 	}
+
+	@Test
+	public void testRollEndpoint(){
+		when(die.roll()).thenReturn(1,2,6,1,1);
+		RollResults result = sut.rollDice("5");
+		assertThat(result.sum).isEqualTo(11);
+		assertThat(result.rolls).isEqualTo(new int[]{1,2,6,1,1});
+	}
 }
